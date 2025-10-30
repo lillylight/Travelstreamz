@@ -126,7 +126,7 @@ export const VideoCard = ({ video, onVideoEnd, onVideoLoaded }: VideoCardProps) 
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-10 h-full flex flex-col justify-between p-3 sm:p-4 md:p-6 pb-24 sm:pb-28 md:pb-32">
+      <div className="relative z-10 h-full flex flex-col justify-between p-3 sm:p-4 md:p-6 pb-32 sm:pb-36 md:pb-32">
         {/* Top Info */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
@@ -174,7 +174,7 @@ export const VideoCard = ({ video, onVideoEnd, onVideoLoaded }: VideoCardProps) 
         {/* Bottom Info */}
         <div className="space-y-3 sm:space-y-4">
           {/* Token Metrics */}
-          <div className="bg-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 sm:space-y-3 shadow-card border border-border max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl md:mx-auto">
+          <div className="bg-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 sm:space-y-3 shadow-card border border-border max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground">Token</p>

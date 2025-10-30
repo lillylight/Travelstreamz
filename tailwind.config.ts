@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      screens: {
+        'mid': {'min': '768px', 'max': '1021px'},
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

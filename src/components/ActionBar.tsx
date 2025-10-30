@@ -25,15 +25,15 @@ export const ActionBar = ({ tokenSymbol, tokenPrice }: ActionBarProps) => {
 
   return (
     <>
-      {/* Floating Action Button - Mobile: bottom center (next to slots), Desktop: right side */}
+      {/* Floating Action Button - Mobile: bottom right, Desktop: right side */}
       {!isExpanded && (
         <button
           onClick={() => setIsExpanded(true)}
-          className="fixed bottom-2 right-1/4 -translate-x-1/2 sm:bottom-24 sm:right-4 sm:left-auto sm:translate-x-0 z-35 w-10 h-10 sm:w-10 sm:h-10 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+          className="fixed bottom-2 right-1/4 translate-x-1/2 sm:bottom-24 sm:right-4 sm:left-auto sm:translate-x-0 z-35 w-12 h-12 sm:w-10 sm:h-10 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center group"
           aria-label="Open trading panel"
           title="Trading Panel"
         >
-          <DollarSign className="w-4 h-4 sm:w-4 sm:h-4 md:w-4 md:h-4 text-white group-hover:rotate-12 transition-transform" />
+          <DollarSign className="w-5 h-5 sm:w-4 sm:h-4 md:w-4 md:h-4 text-white group-hover:rotate-12 transition-transform" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 animate-ping opacity-20" />
         </button>
       )}

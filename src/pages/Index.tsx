@@ -6,6 +6,8 @@ import { StreamSelector } from "@/components/StreamSelector";
 import { ConnectWallet } from "@/components/ConnectWallet";
 import { mockStreams, streamTags } from "@/data/mockStreams";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { 
   Sheet,
   SheetContent,
@@ -36,13 +38,39 @@ import {
   Home,
   ArrowLeft,
   Tv,
-  Bell
+  Bell,
+  Search,
+  X,
+  MapPin
 } from "lucide-react";
+import { VideoCategory } from "@/types/video";
+
+const CATEGORIES: VideoCategory[] = ['safety', 'fun', 'shopping', 'food', 'culture', 'nightlife', 'adventure', 'nature'];
 
 const Index = () => {
   const [viewMode, setViewMode] = useState<'classic' | 'streams' | 'slots'>('classic');
   const [selectedStreamTags, setSelectedStreamTags] = useState<string[]>(['Bali']);
   const [streamViewMode, setStreamViewMode] = useState<'single' | 'split-2' | 'split-3'>('single');
+  const [locationSearch, setLocationSearch] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<VideoCategory[]>([]);
+
+  const onLocationSearch = (location: string) => {
+    setLocationSearch(location);
+  };
+
+  const onCategoryToggle = (category: VideoCategory) => {
+    setSelectedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const onClearFilters = () => {
+    setLocationSearch("");
+    setSelectedCategories([]);
+  };
 
   const handleTagSelect = (tagName: string) => {
     setSelectedStreamTags(prev => {
@@ -206,6 +234,42 @@ const Index = () => {
               </h1>
             </div>
             
+            {/* Center: Search and Filter */}
+            <div className="flex items-center gap-3 max-w-md">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search location..."
+                  value={locationSearch}
+                  onChange={(e) => onLocationSearch(e.target.value)}
+                  className="pl-10 pr-10 bg-card/90 backdrop-blur-sm text-sm h-10 border-white/20 rounded-xl"
+                  onFocus={() => setShowFilters(true)}
+                />
+                {locationSearch && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
+                    onClick={() => onLocationSearch("")}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
+              
+              <Button
+                variant="outline"
+                size="icon"
+                className={`h-10 w-10 bg-card/90 backdrop-blur-sm border-white/20 rounded-xl flex-shrink-0 ${
+                  showFilters ? 'bg-primary/20 border-primary/40' : ''
+                }`}
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Filter className="w-4 h-4" />
+              </Button>
+            </div>
+            
             {/* Right: Settings & Connect Wallet */}
             <div className="flex items-center gap-3">
               <ConnectWallet />
@@ -270,6 +334,43 @@ const Index = () => {
           </div>
         </div>
         
+        {/* Desktop: Category Filters */}
+        {showFilters && (
+          <div className="hidden lg:block absolute top-16 left-1/2 -translate-x-1/2 z-40">
+            <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 space-y-4 border border-white/10 max-w-md w-full">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">Categories</span>
+                </div>
+                {(selectedCategories.length > 0 || locationSearch) && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onClearFilters}
+                    className="h-7 text-xs px-3"
+                  >
+                    Clear All
+                  </Button>
+                )}
+              </div>
+              
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((category) => (
+                  <Badge
+                    key={category}
+                    variant={selectedCategories.includes(category) ? "default" : "outline"}
+                    className="cursor-pointer hover:bg-primary/20 transition-colors capitalize"
+                    onClick={() => onCategoryToggle(category)}
+                  >
+                    {category}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+        
         {/* Mobile: Connect Wallet (Top Right) */}
         <div className="fixed top-3 right-3 z-50 sm:hidden">
           <div className="flex flex-col gap-3">
@@ -277,24 +378,19 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Floating Action Buttons - Mobile: bottom center, Desktop: right side */}
-        <div className="fixed bottom-2 left-1/2 -translate-x-1/2 sm:right-4 sm:left-auto sm:translate-x-0 sm:bottom-6 z-40 flex flex-row sm:flex-col gap-1 sm:gap-2">
-          {/* SLOTS Button - 25% smaller than blue button */}
-          <Button
-            onClick={() => setViewMode('slots')}
-            size="lg"
-            className={`h-10 w-10 sm:h-10 sm:w-10 md:h-10 md:w-10 rounded-full shadow-xl transition-all duration-300 ${
-              viewMode === 'slots'
-                ? 'bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 hover:scale-110 ring-2 ring-yellow-300/50'
-                : 'bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105'
-            }`}
-            title="Slot Machine Mode"
-          >
-            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5" />
-          </Button>
-          
-          {/* Additional spacing for ActionBar button - it will be positioned separately */}
-        </div>
+        {/* Floating Action Button - Sparkles (Center) - Mobile: bottom center, Desktop: right side */}
+        <Button
+          onClick={() => setViewMode('slots')}
+          size="lg"
+          className={`fixed bottom-2 left-1/2 -translate-x-1/2 sm:right-4 sm:left-auto sm:translate-x-0 sm:bottom-6 z-40 h-12 w-12 sm:h-10 sm:w-10 md:h-10 md:w-10 rounded-full shadow-xl transition-all duration-300 ${
+            viewMode === 'slots'
+              ? 'bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 hover:scale-110 ring-2 ring-yellow-300/50'
+              : 'bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105'
+          }`}
+          title="Slot Machine Mode"
+        >
+          <Sparkles className="h-5 w-5 sm:h-5 sm:w-5 md:h-5 md:w-5" />
+        </Button>
         
         {/* Main Content */}
         <div className="ml-12 sm:ml-14 md:ml-16 lg:ml-0 lg:pt-20">

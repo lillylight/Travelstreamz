@@ -305,7 +305,7 @@ export const VideoFeed = () => {
 
       {/* Progress Dots */}
       <div className="absolute top-14 sm:top-16 md:top-4 left-1/2 -translate-x-1/2 z-20 flex gap-1 sm:gap-1.5 max-w-[90vw] overflow-x-auto scrollbar-hide px-4">
-        {filteredVideos.slice(0, 20).map((video, index) => (
+        {filteredVideos.slice(0, 3).map((video, index) => (
           <div
             key={index}
             className="relative h-1 rounded-full overflow-hidden flex-shrink-0 transition-all duration-300"
