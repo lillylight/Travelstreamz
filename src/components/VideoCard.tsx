@@ -76,8 +76,9 @@ export const VideoCard = ({ video, onVideoEnd, onVideoLoaded }: VideoCardProps) 
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-    console.log(`⚠️ Video error for ${video.location.name}:`, e.currentTarget.error?.message);
-    // Keep showing the loading state, don't crash
+    // Silently handle video loading errors to prevent console spam
+    // This is expected behavior when videos are not yet uploaded to Supabase
+    setIsLoaded(true); // Show content overlay even if video fails to load
   };
 
   const formatNumber = (num: number) => {
@@ -173,7 +174,7 @@ export const VideoCard = ({ video, onVideoEnd, onVideoLoaded }: VideoCardProps) 
         {/* Bottom Info */}
         <div className="space-y-3 sm:space-y-4">
           {/* Token Metrics */}
-          <div className="bg-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 sm:space-y-3 shadow-card border border-border">
+          <div className="bg-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 sm:space-y-3 shadow-card border border-border max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl md:mx-auto">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground">Token</p>

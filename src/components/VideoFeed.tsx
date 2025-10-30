@@ -265,7 +265,7 @@ export const VideoFeed = () => {
       </div>
 
       {/* Navigation Indicators */}
-      <div className="fixed right-3 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2 sm:gap-3 md:gap-4">
+      <div className="fixed right-3 sm:right-4 md:right-6 top-[45%] -translate-y-1/2 z-20 flex flex-col gap-2 sm:gap-3 md:gap-4">
         {/* Auto-play toggle */}
         <button
           onClick={() => setIsAutoPlaying(!isAutoPlaying)}

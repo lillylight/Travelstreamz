@@ -71,7 +71,7 @@ export const StreamSelector = ({
                   </div>
                   
                   {isSelected && (
-                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg">
                       <svg 
                         className="w-4 h-4 text-white" 
                         fill="none" 

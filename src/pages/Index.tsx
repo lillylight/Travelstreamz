@@ -192,56 +192,22 @@ const Index = () => {
         </Sheet>
       </div>
 
-      {/* Desktop: Top Navigation */}
-      <div className="hidden lg:flex items-center justify-between p-4 sm:p-6 bg-black/90 backdrop-blur-xl border-b border-white/10">
-        {/* Left: Burger Menu for View Modes */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="bg-white/10 border-white/20 hover:bg-white/20">
-              <Menu className="w-5 h-5 text-white" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-[240px]">
-            <DropdownMenuLabel className="text-sm">Settings</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            
-            <DropdownMenuItem className="text-xs">
-              <Filter className="w-3 h-3 mr-2" />
-              Content Filters
-            </DropdownMenuItem>
-            
-            <DropdownMenuSeparator />
-            
-            <DropdownMenuItem className="text-xs text-muted-foreground">
-              Quality Settings
-            </DropdownMenuItem>
-            
-            <DropdownMenuItem className="text-xs text-muted-foreground">
-              Notifications
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        
-        {/* Right: Connect Wallet */}
-        <ConnectWallet />
-      </div>
-
       {/* Main Content Area */}
-      <main className="ml-12 sm:ml-14 md:ml-16 lg:ml-0 lg:pt-20 min-h-screen bg-background relative">
+      <main className="min-h-screen bg-background relative">
         
         {/* Desktop: Top Navigation */}
-        <div className="hidden lg:block absolute top-4 left-4 right-4 z-50">
+        <div className="hidden lg:block absolute top-2 left-4 right-4 z-50">
           <div className="flex items-center justify-between">
             
             {/* Left: Brand */}
             <div>
-              <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 TravelStreamz
               </h1>
             </div>
             
             {/* Right: Settings & Connect Wallet */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <ConnectWallet />
               
               {/* Settings Menu */}
@@ -250,9 +216,9 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     size="icon"
-                    className="h-10 w-10 rounded-full backdrop-blur-sm bg-white/10 border-white/20"
+                    className="h-9 w-9 rounded-full backdrop-blur-sm bg-white/10 border-white/20 hover:bg-white/20"
                   >
-                    <Settings className="h-5 w-5" />
+                    <Settings className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[240px]">
@@ -305,23 +271,29 @@ const Index = () => {
         </div>
         
         {/* Mobile: Connect Wallet (Top Right) */}
-        <div className="fixed top-2 right-2 z-50 sm:hidden">
-          <ConnectWallet />
+        <div className="fixed top-3 right-3 z-50 sm:hidden">
+          <div className="flex flex-col gap-3">
+            <ConnectWallet />
+          </div>
         </div>
         
-        {/* Floating SLOTS Button */}
-        <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50">
+        {/* Floating Action Buttons - Mobile: bottom center, Desktop: right side */}
+        <div className="fixed bottom-2 left-1/2 -translate-x-1/2 sm:right-4 sm:left-auto sm:translate-x-0 sm:bottom-6 z-40 flex flex-row sm:flex-col gap-1 sm:gap-2">
+          {/* SLOTS Button - 25% smaller than blue button */}
           <Button
             onClick={() => setViewMode('slots')}
             size="lg"
-            className={`h-16 w-16 rounded-full shadow-2xl transition-all duration-300 ${
+            className={`h-10 w-10 sm:h-10 sm:w-10 md:h-10 md:w-10 rounded-full shadow-xl transition-all duration-300 ${
               viewMode === 'slots'
-                ? 'bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 hover:scale-110'
+                ? 'bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 hover:scale-110 ring-2 ring-yellow-300/50'
                 : 'bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105'
             }`}
+            title="Slot Machine Mode"
           >
-            <Sparkles className="h-8 w-8" />
+            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5" />
           </Button>
+          
+          {/* Additional spacing for ActionBar button - it will be positioned separately */}
         </div>
         
         {/* Main Content */}

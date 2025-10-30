@@ -56,10 +56,10 @@ export const ContentSubmissionModal = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button 
-          className="fixed bottom-24 right-4 z-30 w-14 h-14 rounded-full shadow-lg bg-gradient-to-r from-primary to-primary/80 hover:scale-110 transition-transform"
+          className="fixed bottom-2 left-1/4 -translate-x-1/2 sm:right-4 sm:left-auto sm:translate-x-0 sm:bottom-6 z-30 w-10 h-10 rounded-full shadow-lg bg-gradient-to-r from-primary to-primary/80 hover:scale-110 transition-transform"
           size="icon"
         >
-          <Plus className="w-6 h-6" />
+          <Plus className="w-5 h-5" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
